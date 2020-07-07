@@ -11,55 +11,49 @@ namespace XML_Generator
     {
         static void Main(string[] args)
         {
-            //BaseOfNamesGenerator();
-            PaymentGenerator();
+            XML_Generarion();
+  
         }
            
-        static void BaseOfNamesGenerator ()
+        static void XML_Generarion ()
         {
             List<string> Names = File.ReadAllLines("Names.txt").ToList();
             List<string> LastNames = File.ReadAllLines("LastNames.txt").ToList();
             Random rand = new Random();
-            var xmlSerializer = new XmlSerializer(typeof(List<Person>));
+            var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
+            var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
             var stringWriter = new StringWriter();
             List<Person> People = new List<Person>();
+            List<Payment> Payments = new List<Payment>();
 
             for (long i = 0; i < 1000000; i++)
             {
                 var person = new Person { ID = i + 1, Name = Names[rand.Next(Names.Count)], LastName = LastNames[rand.Next(LastNames.Count)] };
                 People.Add(person);
-            }
+            };
             
-            xmlSerializer.Serialize(stringWriter, People);
+            for (long i = 0; i < 10000000; i++)
+            {
+                var payment = new Payment { ID = i + 1, Sum = rand.Next(1, 1000), Date = RandomDay() };
+                Payments.Add(payment);
+            };
+           
+            xmlSerializerPeople.Serialize(stringWriter, People);
             string xml = stringWriter.ToString();
             File.WriteAllText("BaseOfNames.xml", xml);
-        }
+            
+            xmlSerializerPayments.Serialize(stringWriter, Payments);
+            File.WriteAllText("BaseOfPayments.xml", xml);
 
-        static void PaymentGenerator ()
-        {
-            Random rand = new Random();
-            var xmlSerializer = new XmlSerializer(typeof(List<Payment>));
-            var stringWriter = new StringWriter();
-            List<Payment> Payments = new List<Payment>();
-           
             string RandomDay()
             {
                 DateTime start = new DateTime(2015, 1, 1);
                 int range = (DateTime.Today - start).Days;
                 return start.AddDays(rand.Next(range)).ToShortDateString();
             }
-
-            for (long i = 0; i < 10000000; i++)
-            {
-                var payment = new Payment { ID = i + 1, Sum = rand.Next(1, 1000), Date = RandomDay() };
-                Payments.Add(payment);
-            };
-            
-            xmlSerializer.Serialize(stringWriter, Payments);
-            string xml = stringWriter.ToString();
-            File.WriteAllText("BaseOfPayments.xml", xml);
-
         }
+
+        
 
         
     }

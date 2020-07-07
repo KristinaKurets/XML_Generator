@@ -11,7 +11,8 @@ namespace XML_Generator
     {
         static void Main(string[] args)
         {
-            BaseOfNamesGenerator();
+            //BaseOfNamesGenerator();
+            PaymentGenerator();
         }
            
         static void BaseOfNamesGenerator ()
@@ -33,5 +34,33 @@ namespace XML_Generator
             string xml = stringWriter.ToString();
             File.WriteAllText("BaseOfNames.xml", xml);
         }
+
+        static void PaymentGenerator ()
+        {
+            Random rand = new Random();
+            var xmlSerializer = new XmlSerializer(typeof(List<Payment>));
+            var stringWriter = new StringWriter();
+            List<Payment> Payments = new List<Payment>();
+           
+            string RandomDay()
+            {
+                DateTime start = new DateTime(2015, 1, 1);
+                int range = (DateTime.Today - start).Days;
+                return start.AddDays(rand.Next(range)).ToShortDateString();
+            }
+
+            for (long i = 0; i < 10; i++)
+            {
+                var payment = new Payment { ID = i + 1, Sum = rand.Next(1, 1000), Date = RandomDay() };
+                Payments.Add(payment);
+            };
+            
+            xmlSerializer.Serialize(stringWriter, Payments);
+            string xml = stringWriter.ToString();
+            File.WriteAllText("BaseOfPayments.xml", xml);
+
+        }
+
+        
     }
 }

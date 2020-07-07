@@ -19,27 +19,31 @@ namespace XML_Generator
             List<Person> People = new List<Person>();
             List<Payment> Payments = new List<Payment>();
 
-            for (long i = 0; i < 1000000; i++)
+            for (long i = 0; i < 10; i++)
             {
                 var person = new Person { ID = i + 1, Name = Names[rand.Next(Names.Count)], LastName = LastNames[rand.Next(LastNames.Count)] };
                 People.Add(person);
             };
             
-            for (long i = 0; i < 10000000; i++)
+            for (long i = 0; i < 10; i++)
             {
-                var payment = new Payment { ID = i + 1, Sum = rand.Next(1, 1000), Date = RandomDay() };
+                var payment = new Payment { ID = i + 1, Sum = rand.Next(1, 1000), Date = RandomDay(), PersonId = rand.Next(People.Count) };
                 Payments.Add(payment);
             };
 
             //XML serializing:
-            var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
             var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
-            var stringWriter = new StringWriter();
-            xmlSerializerPeople.Serialize(stringWriter, People);
-            string xml = stringWriter.ToString();
-            File.WriteAllText("BaseOfNames.xml", xml);
-            xmlSerializerPayments.Serialize(stringWriter, Payments);
-            File.WriteAllText("BaseOfPayments.xml", xml);
+            var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
+           
+            var stringWriter1 = new StringWriter();
+            xmlSerializerPeople.Serialize(stringWriter1, People);
+            string xml1 = stringWriter1.ToString();
+            File.WriteAllText("BaseOfNames.xml", xml1);
+            
+            var stringWriter2 = new StringWriter();
+            xmlSerializerPayments.Serialize(stringWriter2, Payments);
+            string xml2 = stringWriter2.ToString();
+            File.WriteAllText("BaseOfPayments.xml", xml2);
 
 
             ////Json serializing:

@@ -49,7 +49,7 @@ namespace XML_Generator
                 return start.AddDays(rand.Next(range)).ToShortDateString();
             }
 
-            for (long i = 0; i < 10; i++)
+            for (long i = 0; i < 10000000; i++)
             {
                 var payment = new Payment { ID = i + 1, Sum = rand.Next(1, 1000), Date = RandomDay() };
                 Payments.Add(payment);

@@ -30,7 +30,7 @@ namespace XML_Generator
                 People.Add(person);
             };
 
-            for (long i = 0; i < 1000000; i++)
+            for (long i = 0; i < 10000000; i++)
             {
                 var payment = new Payment 
                 { 
@@ -45,18 +45,15 @@ namespace XML_Generator
             //XML serializing:
             var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
             var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
-           
-            var stringWriter1 = new StringWriter();
-            xmlSerializerPeople.Serialize(stringWriter1, People);
-            var xml1 = stringWriter1.ToString();
-            File.WriteAllText("BaseOfNames.xml", xml1);
-            
-            var stringWriter2 = new StringWriter();
-            xmlSerializerPayments.Serialize(stringWriter2, Payments);
-            var xml2 = stringWriter2.ToString();
-            File.WriteAllText("BaseOfPayments.xml", xml2);
-
-
+            using (var writer = XmlWriter.Create("BaseOfNames.xml"))
+            {
+                xmlSerializerPeople.Serialize(writer, People);
+            }
+            using (var writer = XmlWriter.Create("BaseOfPayments.xml"))
+            {
+                xmlSerializerPayments.Serialize(writer, Payments);
+            }
+  
             ////Json serializing:
             //var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
             //File.WriteAllText("BaseOfNames.json", jsonPeople);

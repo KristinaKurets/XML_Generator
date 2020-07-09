@@ -8,7 +8,7 @@ namespace XML_Generator
     {
         public long ID { get; set; }
         public int Sum { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public long PersonId { get; set; }
     }
 }

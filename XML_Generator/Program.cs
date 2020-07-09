@@ -14,35 +14,12 @@ namespace XML_Generator
     {
         static void Main(string[] args)
         {
-           
-            var Names = File.ReadAllLines("Names.txt").ToList();
-            var LastNames = File.ReadAllLines("LastNames.txt").ToList();
-            var rand = new Random();
+            var service = new List_Services();
             var People = new List<Person>();
             var Payments = new List<Payment>();
-
-            for (long i = 0; i < 20; i++)
-            {
-                var person = new Person
-                {
-                    ID = i + 1,
-                    Name = Names[rand.Next(Names.Count)],
-                    LastName = LastNames[rand.Next(LastNames.Count)]
-                };
-                People.Add(person);
-            };
-
-            for (long i = 0; i < 20; i++)
-            {
-                var payment = new Payment 
-                { 
-                    ID = i + 1, 
-                    Sum = rand.Next(1, 1000), 
-                    Date = new DateTime().RandomDay(), 
-                    PersonId = rand.Next(People.Count) 
-                };
-                Payments.Add(payment);
-            };
+            service.CreateLists(People, Payments);
+            
+            
 
             ////XML serializing:
             //var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));

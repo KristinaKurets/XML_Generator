@@ -11,8 +11,8 @@ namespace XML_Generator
         
         public void CreateLists(List<Person> people, List<Payment> payments)
         {
-            var Names = File.ReadAllLines("Names.txt").ToList();
-            var LastNames = File.ReadAllLines("LastNames.txt").ToList();
+            var Names = File.ReadAllLines(myRes.NamesPath).ToList();
+            var LastNames = File.ReadAllLines(myRes.LastNamesPath).ToList();
             var rand = new Random();                 
 
             for (long i = 0; i < 20; i++)

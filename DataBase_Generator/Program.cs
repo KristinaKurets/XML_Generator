@@ -12,7 +12,11 @@ namespace DataBase_Generator
             var People = new List<Person>();
             var Payments = new List<Payment>();
             service.CreateLists(People, Payments);
-            
+
+            foreach (var person in People)
+            {
+                Console.WriteLine($"{person.Name} {person.LastName}");
+            }
             using (var context = new GeneratorContext())
             {
                 context.People.AddRange(People);

@@ -17,6 +17,7 @@ namespace DataBase_Generator
             {
                 Console.WriteLine($"{person.Name} {person.LastName}");
             }
+            
             using (var context = new GeneratorContext())
             {
                 context.People.AddRange(People);
@@ -24,7 +25,6 @@ namespace DataBase_Generator
                 context.SaveChangesAsync();
             }
 
-            //day3 commit
         }
     }
 }

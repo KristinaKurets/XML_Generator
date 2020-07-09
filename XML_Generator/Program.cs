@@ -14,14 +14,7 @@ namespace XML_Generator
     {
         static void Main(string[] args)
         {
-<<<<<<< HEAD
-           //master commit
-            var Names = File.ReadAllLines("Names.txt").ToList();
-            var LastNames = File.ReadAllLines("LastNames.txt").ToList();
-            var rand = new Random();
-=======
             var service = new List_Services();
->>>>>>> e6674f8f011904329f94f0d5f7868c4064b62597
             var People = new List<Person>();
             var Payments = new List<Payment>();
             service.CreateLists(People, Payments);

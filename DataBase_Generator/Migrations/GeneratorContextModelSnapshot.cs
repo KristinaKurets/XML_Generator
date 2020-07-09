@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace XML_Generator.Migrations
+namespace DataBase_Generator.Migrations
 {
     [DbContext(typeof(GeneratorContext))]
     partial class GeneratorContextModelSnapshot : ModelSnapshot

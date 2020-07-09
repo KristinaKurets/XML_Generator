@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace XML_Generator.Migrations
+namespace DataBase_Generator.Migrations
 {
     public partial class InitialCreate : Migration
     {

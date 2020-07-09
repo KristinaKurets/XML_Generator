@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace XML_Generator.Migrations
+namespace DataBase_Generator.Migrations
 {
     [DbContext(typeof(GeneratorContext))]
-    [Migration("20200709084551_InitialCreate")]
+    [Migration("20200709124909_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

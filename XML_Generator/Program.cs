@@ -12,7 +12,7 @@ namespace XML_Generator
     {
         static void Main(string[] args)
         {
-           
+           //master commit
             var Names = File.ReadAllLines("Names.txt").ToList();
             var LastNames = File.ReadAllLines("LastNames.txt").ToList();
             var rand = new Random();

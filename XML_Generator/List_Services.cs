@@ -21,7 +21,8 @@ namespace XML_Generator
                 {
                     ID = i + 1,
                     Name = Names[rand.Next(Names.Count)],
-                    LastName = LastNames[rand.Next(LastNames.Count)]
+                    LastName = LastNames[rand.Next(LastNames.Count)],
+                    Payments = new List<Payment>()
                 };
                 people.Add(person);
             };
@@ -32,8 +33,9 @@ namespace XML_Generator
                 {
                     ID = i + 1,
                     Sum = rand.Next(1, 1000),
-                    Date = new DateTime().RandomDay(),
-                    PersonId = rand.Next(people.Count)
+                    Date = rand.RandomDay(),
+                    PersonId = rand.Next(people.Count),
+                    Person = new Person()
                 };
                payments.Add(payment);
             };

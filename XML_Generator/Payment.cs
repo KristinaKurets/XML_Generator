@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace XML_Generator
 {
@@ -10,5 +11,9 @@ namespace XML_Generator
         public int Sum { get; set; }
         public DateTime Date { get; set; }
         public long PersonId { get; set; }
+        
+        [XmlIgnore]
+        public Person Person { get; set; }
+
     }
 }

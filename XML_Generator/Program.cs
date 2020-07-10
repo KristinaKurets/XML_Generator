@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +11,7 @@ using System.Xml.Serialization;
 
 namespace XML_Generator
 {
-      class Program
+    class Program
     {
         static void Main(string[] args)
         {
@@ -18,13 +19,11 @@ namespace XML_Generator
             var People = new List<Person>();
             var Payments = new List<Payment>();
             service.CreateLists(People, Payments);
-            
-            
 
-            ////XML serializing:
-            //var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
-            //var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
-            //XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+            //XML serializing:
+            var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
+            var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
+            //var settings = new XmlWriterSettings { Indent = true };
             //using (var writer = XmlWriter.Create("BaseOfNames.xml", settings))
             //{
             //    xmlSerializerPeople.Serialize(writer, People);
@@ -34,64 +33,73 @@ namespace XML_Generator
             //    xmlSerializerPayments.Serialize(writer, Payments);
             //}
 
-            //Json serializing:
-            var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText("BaseOfNames.json", jsonPeople);
-            var jsonPayments = JsonConvert.SerializeObject(Payments, Newtonsoft.Json.Formatting.Indented);
-            File.WriteAllText("BaseOfPayments.json", jsonPayments);
+            ////Json serializing:
+            //var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
+            //File.WriteAllText("BaseOfNames.json", jsonPeople);
+            //var jsonPayments = JsonConvert.SerializeObject(Payments, Newtonsoft.Json.Formatting.Indented);
+            //File.WriteAllText("BaseOfPayments.json", jsonPayments);
 
 
-            ////LINQ
-            //XDocument xdocPeople = XDocument.Load("BaseOfNames.xml");
-            //var items = from xe in xdocPeople.Element("ArrayOfPerson").Elements("Person")
-            //            where xe.Element("Name").Value == "Toby"
-            //            select new Person
-            //            {
-            //                Name = xe.Element("Name").Value,
-            //                LastName = xe.Element("LastName").Value,
+            //LINQ
+            var NewPayments = new List<Payment>();
+            var NewPeople = new List<Person>();
 
-            //            };
+            using (var reader = XmlReader.Create("BaseOfNames.xml"))
+            {
+                NewPeople = (List<Person>)xmlSerializerPeople.Deserialize(reader);
+            }
+            using (var reader = XmlReader.Create("BaseOfPayments.xml"))
+            {
+                NewPayments = (List<Payment>)xmlSerializerPayments.Deserialize(reader);
+            }
 
+            var firstTask = NewPeople.Join(
+                NewPayments,
+                person => person.ID,
+                payment => payment.PersonId,
+                (person, payment) => new {
+                    Name = person.Name,
+                    LastName = person.LastName,
+                    Date = payment.Date,
+                    Sum = payment.Sum
+                 }
+                    ).Where(x => x.Date > DateTime.Now.AddDays(-30))
+                      .Select(xe => new 
+                       {
+                        Name = xe.Name,
+                        LastName = xe.LastName,
+                        Sum = xe.Sum,
+                        Date = xe.Date
+                       });
 
-            //XDocument xdocPayments = XDocument.Load("BaseOfPayments.xml");
-            //var today = DateTime.Today;
-            //var currMonth = today.Month;
-            //var prevMonth = today.AddMonths(-3);
+            if (firstTask.ToList().Count == 0)
+            {
+                Console.WriteLine("There are no people who have had payments for the last month.");
+            }
+            else
+            {
+                Console.WriteLine("People who have had payments for the last month:");
+                foreach (var item in firstTask)
+                {
+                    Console.WriteLine($"{item.Name} {item.LastName} paid {item.Sum}$ - {item.Date}");
+                }
+            }
 
-            //Console.WriteLine("People who have had payments for the last month(June 2020)");
-
-            //var firstTask =
-            //    xdocPayments.Element("ArrayOfPayment").Elements("Payment")
-            //.Where(x => DateTime.Parse(x.Element("Date").Value) == prevMonth)
-            //.Select(xe => new Payment
+            //.GroupBy(payment => payment.PersonId)
+            //.Select(x => new
             //{
-            //    PersonId = long.Parse(xe.Element("PersonId").Value)
-            //})
-            //    .GroupBy(payment => payment.PersonId)
-            //    .Select(x => new
-            //    {
-            //        PersonId = x.Key,
-            //        Sum = x.Sum(c => c.Sum)
-            //    });
+            //    PersonId = x.Key,
+            //    Sum = x.Key
+            //});
+
 
 
             //var secondTask =
             //    xdocPayments.Element("ArrayOfPayment").Elements("Payment")
             //    .Where(x => DateTime.Parse(x.Element("Date").Value) >= today.AddMonths(-6) && DateTime.Parse(x.Element("Date").Value) <= today);
-                
 
-        }
 
-    }
-    public static class DateTimeExtension
-    {
-        public static DateTime RandomDay(this DateTime start)
-        {
-            var rand = new Random();
-            start = new DateTime(2015, 1, 1);
-            var range = (DateTime.Today - start).Days;
-            return start.AddDays(rand.Next(range)); ;
- 
+
         }
     }
 }

@@ -8,22 +8,22 @@ namespace DataBase_Generator
     {
         static void Main(string[] args)
         {
-            var service = new List_Services();
-            var People = new List<Person>();
-            var Payments = new List<Payment>();
-            service.CreateLists(People, Payments);
+            //var service = new List_Services();
+            //var People = new List<Person>();
+            //var Payments = new List<Payment>();
+            //service.CreateLists(People, Payments);
 
-            foreach (var person in People)
-            {
-                Console.WriteLine($"{person.Name} {person.LastName}");
-            }
+            //foreach (var person in People)
+            //{
+            //    Console.WriteLine($"{person.Name} {person.LastName}");
+            //}
             
-            using (var context = new GeneratorContext())
-            {
-                context.People.AddRange(People);
-                context.Payments.AddRange(Payments);
-                context.SaveChangesAsync();
-            }
+            //using (var context = new GeneratorContext())
+            //{
+            //    context.People.AddRange(People);
+            //    context.Payments.AddRange(Payments);
+            //    context.SaveChangesAsync();
+            //}
 
         }
     }

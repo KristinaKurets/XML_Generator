@@ -70,11 +70,29 @@ namespace XML_Generator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BaseOfPayments.xml.
+        /// </summary>
+        public static string LastNamesXmlPath {
+            get {
+                return ResourceManager.GetString("LastNamesXmlPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Names.txt.
         /// </summary>
         public static string NamesPath {
             get {
                 return ResourceManager.GetString("NamesPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BaseOfNames.xml.
+        /// </summary>
+        public static string NamesXmlPath {
+            get {
+                return ResourceManager.GetString("NamesXmlPath", resourceCulture);
             }
         }
     }

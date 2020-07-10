@@ -120,7 +120,13 @@
   <data name="LastNamesPath" xml:space="preserve">
     <value>LastNames.txt</value>
   </data>
+  <data name="LastNamesXmlPath" xml:space="preserve">
+    <value>BaseOfPayments.xml</value>
+  </data>
   <data name="NamesPath" xml:space="preserve">
     <value>Names.txt</value>
+  </data>
+  <data name="NamesXmlPath" xml:space="preserve">
+    <value>BaseOfNames.xml</value>
   </data>
 </root>

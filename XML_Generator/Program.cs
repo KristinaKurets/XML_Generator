@@ -8,6 +8,7 @@ using System.Net;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Configuration;
 
 namespace XML_Generator
 {
@@ -23,15 +24,15 @@ namespace XML_Generator
             //XML serializing:
             var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
             var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
-            //var settings = new XmlWriterSettings { Indent = true };
-            //using (var writer = XmlWriter.Create("BaseOfNames.xml", settings))
-            //{
-            //    xmlSerializerPeople.Serialize(writer, People);
-            //}
-            //using (var writer = XmlWriter.Create("BaseOfPayments.xml", settings))
-            //{
-            //    xmlSerializerPayments.Serialize(writer, Payments);
-            //}
+            var settings = new XmlWriterSettings { Indent = true };
+            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfNames"], settings))
+            {
+                xmlSerializerPeople.Serialize(writer, People);
+            }
+            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfPayments"], settings))
+            {
+                xmlSerializerPayments.Serialize(writer, Payments);
+            }
 
             ////Json serializing:
             //var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
@@ -44,11 +45,11 @@ namespace XML_Generator
             var NewPayments = new List<Payment>();
             var NewPeople = new List<Person>();
 
-            using (var reader = XmlReader.Create("BaseOfNames.xml"))
+            using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfNames"]))
             {
                 NewPeople = (List<Person>)xmlSerializerPeople.Deserialize(reader);
             }
-            using (var reader = XmlReader.Create("BaseOfPayments.xml"))
+            using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfPayments"]))
             {
                 NewPayments = (List<Payment>)xmlSerializerPayments.Deserialize(reader);
             }
@@ -74,11 +75,11 @@ namespace XML_Generator
 
             if (firstTask.ToList().Count == 0)
             {
-                Console.WriteLine("There are no people who have had payments for the last month.");
+                Console.WriteLine(myRes.NoPeople);
             }
             else
             {
-                Console.WriteLine("People who have had payments for the last month:");
+                Console.WriteLine(myRes.WhichPeople);
                 foreach (var item in firstTask)
                 {
                     Console.WriteLine($"{item.Name} {item.LastName} paid {item.Sum}$ - {item.Date}");

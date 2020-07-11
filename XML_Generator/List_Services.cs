@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,11 +12,11 @@ namespace XML_Generator
         
         public void CreateLists(List<Person> people, List<Payment> payments)
         {
-            var Names = File.ReadAllLines(myRes.NamesPath).ToList();
-            var LastNames = File.ReadAllLines(myRes.LastNamesPath).ToList();
+            var Names = File.ReadAllLines(ConfigurationManager.AppSettings["NamesPath"]).ToList();
+            var LastNames = File.ReadAllLines(ConfigurationManager.AppSettings["LastNamesPath"]).ToList();
             var rand = new Random();                 
 
-            for (long i = 0; i < 20; i++)
+            for (long i = 0; i < 1000; i++)
             {
                 var person = new Person
                 {
@@ -27,7 +28,7 @@ namespace XML_Generator
                 people.Add(person);
             };
 
-            for (long i = 0; i < 20; i++)
+            for (long i = 0; i < 1000; i++)
             {
                 var payment = new Payment
                 {

@@ -61,38 +61,20 @@ namespace XML_Generator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LastNames.txt.
+        ///   Looks up a localized string similar to &quot;There are no people who have had payments for the last month.&quot;.
         /// </summary>
-        public static string LastNamesPath {
+        public static string NoPeople {
             get {
-                return ResourceManager.GetString("LastNamesPath", resourceCulture);
+                return ResourceManager.GetString("NoPeople", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BaseOfPayments.xml.
+        ///   Looks up a localized string similar to &quot;People who have had payments for the last month:&quot;.
         /// </summary>
-        public static string LastNamesXmlPath {
+        public static string WhichPeople {
             get {
-                return ResourceManager.GetString("LastNamesXmlPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Names.txt.
-        /// </summary>
-        public static string NamesPath {
-            get {
-                return ResourceManager.GetString("NamesPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BaseOfNames.xml.
-        /// </summary>
-        public static string NamesXmlPath {
-            get {
-                return ResourceManager.GetString("NamesXmlPath", resourceCulture);
+                return ResourceManager.GetString("WhichPeople", resourceCulture);
             }
         }
     }

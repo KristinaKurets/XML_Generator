@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LastNamesPath" xml:space="preserve">
-    <value>LastNames.txt</value>
+  <data name="NoPeople" xml:space="preserve">
+    <value>"There are no people who have had payments for the last month."</value>
   </data>
-  <data name="LastNamesXmlPath" xml:space="preserve">
-    <value>BaseOfPayments.xml</value>
-  </data>
-  <data name="NamesPath" xml:space="preserve">
-    <value>Names.txt</value>
-  </data>
-  <data name="NamesXmlPath" xml:space="preserve">
-    <value>BaseOfNames.xml</value>
+  <data name="WhichPeople" xml:space="preserve">
+    <value>"People who have had payments for the last month:"</value>
   </data>
 </root>

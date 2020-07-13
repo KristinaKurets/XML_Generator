@@ -9,11 +9,14 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Configuration;
+using DataBase_Generator;
+using Microsoft.EntityFrameworkCore;
 
 namespace XML_Generator
 {
     class Program
     {
+        [Obsolete]
         static void Main(string[] args)
         {
             var service = new List_Services();
@@ -44,13 +47,17 @@ namespace XML_Generator
             //LINQ
             var request = new Linq_Requests();
             request.LastMonthPayments();
-            //request.MaxAveragePayment();
-            
-           
-            
-            
+            request.MaxAveragePayment();
 
 
+            ////dbContext
+            //var context = new GeneratorContext();
+            //var paymentsResult = context.Payments.FromSql("PaymentsFromXML").ToList();
+            //var peopleResult = context.People.FromSql("PeopleFromXML").ToList();
+            //foreach (var item in peopleResult)
+            //{
+            //    Console.WriteLine($"{item.Name} {item.LastName}");
+            //}
         }
     }
 }

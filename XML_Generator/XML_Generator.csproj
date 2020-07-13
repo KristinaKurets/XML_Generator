@@ -47,4 +47,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DataBase_Generator\DataBase_Generator.csproj" />
+  </ItemGroup>
+
 </Project>

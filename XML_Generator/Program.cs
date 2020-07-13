@@ -46,8 +46,9 @@ namespace XML_Generator
 
             //LINQ
             var request = new Linq_Requests();
-            request.LastMonthPayments();
-            request.MaxAveragePayment();
+            //request.LastMonthPayments();
+            //request.MaxAveragePayment();
+            request.UserSumPayments(4);
 
 
             ////dbContext

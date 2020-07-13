@@ -61,7 +61,7 @@ namespace XML_Generator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;There are no people who have had payments for the last month.&quot;.
+        ///   Looks up a localized string similar to There are no people on the list that meet the condition..
         /// </summary>
         public static string NoPeople {
             get {
@@ -70,11 +70,20 @@ namespace XML_Generator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;People who have had payments for the last month:&quot;.
+        ///   Looks up a localized string similar to People who have had a payment in the last month:.
         /// </summary>
-        public static string WhichPeople {
+        public static string PeopleFromFirstTask {
             get {
-                return ResourceManager.GetString("WhichPeople", resourceCulture);
+                return ResourceManager.GetString("PeopleFromFirstTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to People with the highest average payment in the last 6 months:.
+        /// </summary>
+        public static string PeopleFromSecondTask {
+            get {
+                return ResourceManager.GetString("PeopleFromSecondTask", resourceCulture);
             }
         }
     }

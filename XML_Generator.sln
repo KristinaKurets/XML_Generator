@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XML_Generator", "XML_Generator\XML_Generator.csproj", "{52DCF0A9-360A-4B9B-A517-310B8F5AB6A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBase_Generator", "DataBase_Generator\DataBase_Generator.csproj", "{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBase_Generator", "DataBase_Generator\DataBase_Generator.csproj", "{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SQL_Project", "SQL_Project\SQL_Project.sqlproj", "{5004C623-CA95-43EF-9E10-7B4542D202B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5004C623-CA95-43EF-9E10-7B4542D202B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5004C623-CA95-43EF-9E10-7B4542D202B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5004C623-CA95-43EF-9E10-7B4542D202B8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5004C623-CA95-43EF-9E10-7B4542D202B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5004C623-CA95-43EF-9E10-7B4542D202B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5004C623-CA95-43EF-9E10-7B4542D202B8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

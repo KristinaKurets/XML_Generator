@@ -25,14 +25,14 @@ namespace XML_Generator
             var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
             var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
             var settings = new XmlWriterSettings { Indent = true };
-            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfNames"], settings))
-            {
-                xmlSerializerPeople.Serialize(writer, People);
-            }
-            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfPayments"], settings))
-            {
-                xmlSerializerPayments.Serialize(writer, Payments);
-            }
+            //using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfNames"], settings))
+            //{
+            //    xmlSerializerPeople.Serialize(writer, People);
+            //}
+            //using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfPayments"], settings))
+            //{
+            //    xmlSerializerPayments.Serialize(writer, Payments);
+            //}
 
             ////Json serializing:
             //var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
@@ -42,63 +42,13 @@ namespace XML_Generator
 
 
             //LINQ
-            var NewPayments = new List<Payment>();
-            var NewPeople = new List<Person>();
-
-            using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfNames"]))
-            {
-                NewPeople = (List<Person>)xmlSerializerPeople.Deserialize(reader);
-            }
-            using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfPayments"]))
-            {
-                NewPayments = (List<Payment>)xmlSerializerPayments.Deserialize(reader);
-            }
-
-            var firstTask = NewPeople.Join(
-                NewPayments,
-                person => person.ID,
-                payment => payment.PersonId,
-                (person, payment) => new {
-                    Name = person.Name,
-                    LastName = person.LastName,
-                    Date = payment.Date,
-                    Sum = payment.Sum
-                 }
-                    ).Where(x => x.Date > DateTime.Now.AddDays(-30))
-                      .Select(xe => new 
-                       {
-                        Name = xe.Name,
-                        LastName = xe.LastName,
-                        Sum = xe.Sum,
-                        Date = xe.Date
-                       });
-
-            if (firstTask.ToList().Count == 0)
-            {
-                Console.WriteLine(myRes.NoPeople);
-            }
-            else
-            {
-                Console.WriteLine(myRes.WhichPeople);
-                foreach (var item in firstTask)
-                {
-                    Console.WriteLine($"{item.Name} {item.LastName} paid {item.Sum}$ - {item.Date}");
-                }
-            }
-
-            //.GroupBy(payment => payment.PersonId)
-            //.Select(x => new
-            //{
-            //    PersonId = x.Key,
-            //    Sum = x.Key
-            //});
-
-
-
-            //var secondTask =
-            //    xdocPayments.Element("ArrayOfPayment").Elements("Payment")
-            //    .Where(x => DateTime.Parse(x.Element("Date").Value) >= today.AddMonths(-6) && DateTime.Parse(x.Element("Date").Value) <= today);
-
+            var request = new Linq_Requests();
+            request.LastMonthPayments();
+            //request.MaxAveragePayment();
+            
+           
+            
+            
 
 
         }

@@ -16,7 +16,7 @@ namespace XML_Generator
             var LastNames = File.ReadAllLines(ConfigurationManager.AppSettings["LastNamesPath"]).ToList();
             var rand = new Random();                 
 
-            for (long i = 0; i < 1000; i++)
+            for (long i = 0; i < 10000; i++)
             {
                 var person = new Person
                 {
@@ -28,7 +28,7 @@ namespace XML_Generator
                 people.Add(person);
             };
 
-            for (long i = 0; i < 1000; i++)
+            for (long i = 0; i < 100000; i++)
             {
                 var payment = new Payment
                 {

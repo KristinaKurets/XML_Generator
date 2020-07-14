@@ -2,7 +2,7 @@
 AS
 BEGIN
 SET IDENTITY_INSERT People ON
-TRUNCATE TABLE Payments
+TRUNCATE TABLE People
 CREATE TABLE #myTempTable
 (
     [Xml] xml

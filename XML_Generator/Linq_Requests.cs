@@ -16,7 +16,7 @@ namespace XML_Generator
             var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
             var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
             //var settings = new XmlWriterSettings { Indent = true };
-            var path = ConfigurationManager.AppSettings["BaseOfNames"];
+           
             using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfNames"]))
             {
                 NewPeople = (List<Person>)xmlSerializerPeople.Deserialize(reader);
@@ -30,7 +30,7 @@ namespace XML_Generator
         {
             var NewPeople = new List<Person>();
             var NewPayments = new List<Payment>();
-            //Deserialisation(NewPeople, NewPayments);
+            Deserialisation(out NewPeople, out NewPayments);
             // Вывести людей у которых за последний месяц были платежи (также вывести сумму платежей каждого из этих людей):
             var firstTask = NewPeople.Join(
                 NewPayments,
@@ -137,6 +137,47 @@ namespace XML_Generator
 
             Console.WriteLine($"{thirdTask.Name} {thirdTask.LastName} - {thirdTask.Sum}");
             stopWatch.Stop();
+        }
+
+        public void Top3MaxAndMin ()
+        {
+            var NewPeople = new List<Person>();
+            var NewPayments = new List<Payment>();
+            Deserialisation(out NewPeople, out NewPayments);
+            //Вывести 3 людей с самой большой суммой платежей за последний год и 3 с самой маленькой суммой.
+            var fourthTask = NewPeople.Join(
+                NewPayments,
+                person => person.ID,
+                payment => payment.PersonId,
+                (person, payment) => new
+                {
+                    Name = person.Name,
+                    LastName = person.LastName,
+                    Date = payment.Date,
+                    Sum = payment.Sum,
+
+                }
+                    ).Where(x => x.Date > DateTime.Now.AddMonths(-12))
+                    .GroupBy(n => new { Name = n.Name, LastName = n.LastName })
+                    .Select(xe => new
+                    {
+                        Name = xe.Key.Name,
+                        LastName = xe.Key.LastName,
+                        Sum = xe.Average(x => x.Sum)
+                    })
+                    .OrderByDescending(x => x.Sum);
+            
+            var resultMax = fourthTask.Take(3);
+            var resultMin = fourthTask.TakeLast(3);
+           
+            foreach (var item in resultMax)
+            {
+                Console.WriteLine($"{item.Name} {item.LastName} - {item.Sum}");
+            }
+            foreach (var item in resultMin)
+            {
+                Console.WriteLine($"{item.Name} {item.LastName} - {item.Sum}");
+            }
         }
     }
 }

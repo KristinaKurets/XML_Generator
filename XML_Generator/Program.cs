@@ -16,9 +16,8 @@ namespace XML_Generator
 {
     class Program
     {
-        [Obsolete]
-        static void Main(string[] args)
-        {
+       static void Main(string[] args)
+       {
             var service = new List_Services();
             var People = new List<Person>();
             var Payments = new List<Payment>();
@@ -28,14 +27,14 @@ namespace XML_Generator
             var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
             var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
             var settings = new XmlWriterSettings { Indent = true };
-            //using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfNames"], settings))
-            //{
-            //    xmlSerializerPeople.Serialize(writer, People);
-            //}
-            //using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfPayments"], settings))
-            //{
-            //    xmlSerializerPayments.Serialize(writer, Payments);
-            //}
+            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfNames"], settings))
+            {
+                xmlSerializerPeople.Serialize(writer, People);
+            }
+            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfPayments"], settings))
+            {
+                xmlSerializerPayments.Serialize(writer, Payments);
+            }
 
             ////Json serializing:
             //var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
@@ -48,13 +47,14 @@ namespace XML_Generator
             var request = new Linq_Requests();
             //request.LastMonthPayments();
             //request.MaxAveragePayment();
-            request.UserSumPayments(4);
+            request.UserSumPayments(400);
+            //request.Top3MaxAndMin();
 
 
             ////dbContext
             //var context = new GeneratorContext();
-            //var paymentsResult = context.Payments.FromSql("PaymentsFromXML").ToList();
-            //var peopleResult = context.People.FromSql("PeopleFromXML").ToList();
+            //var paymentsResult = context.Payments.FromSqlRaw("PaymentsFromXML").ToList();
+            //var peopleResult = context.People.FromSqlRaw("PeopleFromXML").ToList();
             //foreach (var item in peopleResult)
             //{
             //    Console.WriteLine($"{item.Name} {item.LastName}");

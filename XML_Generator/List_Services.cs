@@ -10,13 +10,13 @@ namespace XML_Generator
     public class List_Services
     {
         
-        public void CreateLists(List<Person> people, List<Payment> payments)
+        public void CreateLists(List<Person> people, List<Payment> payments, long numOfPeople, long numOfPayments)
         {
             var Names = File.ReadAllLines(ConfigurationManager.AppSettings["NamesPath"]).ToList();
             var LastNames = File.ReadAllLines(ConfigurationManager.AppSettings["LastNamesPath"]).ToList();
             var rand = new Random();                 
 
-            for (long i = 0; i < 10000; i++)
+            for (long i = 0; i < numOfPeople; i++)
             {
                 var person = new Person
                 {
@@ -28,7 +28,7 @@ namespace XML_Generator
                 people.Add(person);
             };
 
-            for (long i = 0; i < 100000; i++)
+            for (long i = 0; i < numOfPayments; i++)
             {
                 var payment = new Payment
                 {

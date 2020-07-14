@@ -11,26 +11,13 @@ namespace XML_Generator
 {
     public class Linq_Requests
     {
-        public void Deserialisation(out List<Person> NewPeople,out List<Payment> NewPayments)
-        {
-            var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
-            var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
-            //var settings = new XmlWriterSettings { Indent = true };
-           
-            using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfNames"]))
-            {
-                NewPeople = (List<Person>)xmlSerializerPeople.Deserialize(reader);
-            }
-            using (var reader = XmlReader.Create(ConfigurationManager.AppSettings["BaseOfPayments"]))
-            {
-                NewPayments = (List<Payment>)xmlSerializerPayments.Deserialize(reader);
-            }
-        }
         public void LastMonthPayments()
         {
             var NewPeople = new List<Person>();
             var NewPayments = new List<Payment>();
-            Deserialisation(out NewPeople, out NewPayments);
+            var xml_data = new Serializator();
+            xml_data.Deserialisation(out NewPeople, out NewPayments);
+            
             // Вывести людей у которых за последний месяц были платежи (также вывести сумму платежей каждого из этих людей):
             var firstTask = NewPeople.Join(
                 NewPayments,
@@ -70,7 +57,8 @@ namespace XML_Generator
         {
             var NewPeople = new List<Person>();
             var NewPayments = new List<Payment>();
-            Deserialisation(out NewPeople, out NewPayments);
+            var xml_data = new Serializator();
+            xml_data.Deserialisation(out NewPeople, out NewPayments);
             //Вывести 5 людей, у которых за последние 6 месяцев был наибольший средний платеж:
             var secondTask = NewPeople.Join(
                 NewPayments,
@@ -105,7 +93,8 @@ namespace XML_Generator
         {
             var NewPeople = new List<Person>();
             var NewPayments = new List<Payment>();
-            Deserialisation(out NewPeople, out NewPayments);
+            var xml_data = new Serializator();
+            xml_data.Deserialisation(out NewPeople, out NewPayments);
             NewPeople = NewPeople.Where(p => p.ID == userID).ToList();
             NewPayments = NewPayments.Where(p => p.PersonId == userID).ToList();
             Stopwatch stopWatch = new Stopwatch();
@@ -143,7 +132,8 @@ namespace XML_Generator
         {
             var NewPeople = new List<Person>();
             var NewPayments = new List<Payment>();
-            Deserialisation(out NewPeople, out NewPayments);
+            var xml_data = new Serializator();
+            xml_data.Deserialisation(out NewPeople, out NewPayments);
             //Вывести 3 людей с самой большой суммой платежей за последний год и 3 с самой маленькой суммой.
             var fourthTask = NewPeople.Join(
                 NewPayments,

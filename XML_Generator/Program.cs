@@ -19,23 +19,12 @@ namespace XML_Generator
        static void Main(string[] args)
        {
             var service = new List_Services();
+            var xml_data = new Serializator();
             var People = new List<Person>();
             var Payments = new List<Payment>();
-            service.CreateLists(People, Payments);
-
-            //XML serializing:
-            var xmlSerializerPayments = new XmlSerializer(typeof(List<Payment>));
-            var xmlSerializerPeople = new XmlSerializer(typeof(List<Person>));
-            var settings = new XmlWriterSettings { Indent = true };
-            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfNames"], settings))
-            {
-                xmlSerializerPeople.Serialize(writer, People);
-            }
-            using (var writer = XmlWriter.Create(ConfigurationManager.AppSettings["BaseOfPayments"], settings))
-            {
-                xmlSerializerPayments.Serialize(writer, Payments);
-            }
-
+            service.CreateLists(People, Payments, 10000, 100000);
+            xml_data.Serialization(People, Payments);
+            
             ////Json serializing:
             //var jsonPeople = JsonConvert.SerializeObject(People, Newtonsoft.Json.Formatting.Indented);
             //File.WriteAllText("BaseOfNames.json", jsonPeople);

@@ -3,16 +3,16 @@ AS
 BEGIN
 
 	WITH a as (
-		SELECT TOP 3 People.ID, People.[Name], People.LastName, Payments.[Sum]
+		SELECT TOP 3 People.ID, People.[Name], People.LastName, [Sum] = SUM(Payments.[Sum])
 		FROM People JOIN Payments ON People.ID = Payments.PersonId
 		WHERE Payments.[Date]>=GETDATE()-365
-		GROUP BY People.ID, People.[Name], People.LastName, Payments.[Sum]
+		GROUP BY People.ID, People.[Name], People.LastName
 		ORDER BY SUM(Payments.[Sum]) DESC),
 		
-		b as (SELECT TOP 3 People.ID, People.[Name], People.LastName, Payments.[Sum]
+		b as (SELECT TOP 3 People.ID, People.[Name], People.LastName, [Sum] = SUM(Payments.[Sum])
 	FROM People JOIN Payments ON People.ID = Payments.PersonId
 	WHERE Payments.[Date] >= GETDATE()-365
-	GROUP BY People.ID, People.[Name], People.LastName, Payments.[Sum]
+	GROUP BY People.ID, People.[Name], People.LastName
 	ORDER BY SUM(Payments.[Sum]) ASC)
 	
 	SELECT * from a 

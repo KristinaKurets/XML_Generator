@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XML_Generator {
+namespace LINQ {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace XML_Generator {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("XML_Generator.myRes", typeof(myRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LINQ.myRes", typeof(myRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,29 @@ namespace XML_Generator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LastNames.txt.
+        ///   Looks up a localized string similar to There are no people on the list that meet the condition..
         /// </summary>
-        public static string LastNamesPath {
+        public static string NoPeople {
             get {
-                return ResourceManager.GetString("LastNamesPath", resourceCulture);
+                return ResourceManager.GetString("NoPeople", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BaseOfPayments.xml.
+        ///   Looks up a localized string similar to People who have had a payment in the last month:.
         /// </summary>
-        public static string LastNamesXmlPath {
+        public static string PeopleFromFirstTask {
             get {
-                return ResourceManager.GetString("LastNamesXmlPath", resourceCulture);
+                return ResourceManager.GetString("PeopleFromFirstTask", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Names.txt.
+        ///   Looks up a localized string similar to People with the highest average payment in the last 6 months:.
         /// </summary>
-        public static string NamesPath {
+        public static string PeopleFromSecondTask {
             get {
-                return ResourceManager.GetString("NamesPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BaseOfNames.xml.
-        /// </summary>
-        public static string NamesXmlPath {
-            get {
-                return ResourceManager.GetString("NamesXmlPath", resourceCulture);
+                return ResourceManager.GetString("PeopleFromSecondTask", resourceCulture);
             }
         }
     }

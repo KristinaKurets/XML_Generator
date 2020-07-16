@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
-using XML_Generator;
 
 namespace DataBase_Generator
 {
@@ -14,6 +13,11 @@ namespace DataBase_Generator
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=LAPTOP-S2L9C420;Database=Trainee;Integrated Security=True;");
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<QueryResult>().HasKey(qr => new { qr.ID, qr.Name, qr.LastName, qr.TotalSum });
         }
     }
 }

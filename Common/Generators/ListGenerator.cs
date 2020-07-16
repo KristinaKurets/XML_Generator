@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
+using DataBase_Generator;
 
-namespace XML_Generator
+
+namespace Common.Generators
 {
-    public class List_Services
+    public class ListGenerator
     {
-        
-        public void CreateLists(List<Person> people, List<Payment> payments, long numOfPeople, long numOfPayments)
+        public void CreateListOfPeople(List<Person> people, long numOfPeople)
         {
             var Names = File.ReadAllLines(ConfigurationManager.AppSettings["NamesPath"]).ToList();
             var LastNames = File.ReadAllLines(ConfigurationManager.AppSettings["LastNamesPath"]).ToList();
-            var rand = new Random();                 
+            var rand = new Random();
 
             for (long i = 0; i < numOfPeople; i++)
             {
@@ -28,6 +28,10 @@ namespace XML_Generator
                 people.Add(person);
             };
 
+        }
+        public void CreateListOfPayments(List<Payment> payments, long numOfPayments, int numOfPeople)
+        {
+            var rand = new Random();
             for (long i = 0; i < numOfPayments; i++)
             {
                 var payment = new Payment
@@ -35,11 +39,12 @@ namespace XML_Generator
                     ID = i + 1,
                     Sum = rand.Next(1, 1000),
                     Date = rand.RandomDay(),
-                    PersonId = rand.Next(people.Count),
+                    PersonId = rand.Next(numOfPeople),
                     Person = new Person()
                 };
-               payments.Add(payment);
+                payments.Add(payment);
             };
         }
+
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XML_Generator {
+namespace LINQ {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace XML_Generator {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("XML_Generator.myRes", typeof(myRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LINQ.myRes", typeof(myRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

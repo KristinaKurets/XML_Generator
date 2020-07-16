@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace XML_Generator
+namespace DataBase_Generator
 {
     public class Payment
     {

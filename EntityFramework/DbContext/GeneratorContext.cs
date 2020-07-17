@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataBase_Generator;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
 
-namespace DataBase_Generator
+namespace EntityFramework
 {
     public class GeneratorContext : DbContext
     {

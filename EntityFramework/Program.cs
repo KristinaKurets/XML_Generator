@@ -19,7 +19,7 @@ namespace EntityFramework
             //var MaxAveragePayment = result.MaxAveragePayment();
             //var UserSumPayments = result.UserSumPayments(id: 45);
             //var Top3MaxAndMin = result.Top3MaxAndMin();
-            
+
             //foreach (var item in collection)
             //{
             //    Console.WriteLine($"{item.Name} {item.LastName} - {item.TotalSum}");

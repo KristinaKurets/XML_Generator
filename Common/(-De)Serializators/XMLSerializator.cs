@@ -24,10 +24,7 @@ namespace Common
             {
                 serializer.Serialize(writer, item);
             }
-            //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            //{
-            //    serializer.Serialize(fs, item);
-            //}
+
         }
     }
 }

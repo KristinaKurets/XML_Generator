@@ -12,8 +12,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LINQ", "LINQ\LINQ.csproj", "{C96EB9A5-2CDF-4924-B232-402341299E82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework", "EntityFramework\EntityFramework.csproj", "{966F0915-1802-483C-8C83-7466CBEEBADF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9532B8E5-FC4B-4F7B-B72B-79292F85703D} = {9532B8E5-FC4B-4F7B-B72B-79292F85703D}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsService", "WindowsService\WindowsService.csproj", "{A9E6A64E-7069-43F1-A4E8-17715AE2A67F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsService", "WindowsService\WindowsService.csproj", "{EB07F2A1-6D31-4C39-9162-5BEB342D03A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +46,10 @@ Global
 		{966F0915-1802-483C-8C83-7466CBEEBADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966F0915-1802-483C-8C83-7466CBEEBADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{966F0915-1802-483C-8C83-7466CBEEBADF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9E6A64E-7069-43F1-A4E8-17715AE2A67F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9E6A64E-7069-43F1-A4E8-17715AE2A67F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9E6A64E-7069-43F1-A4E8-17715AE2A67F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9E6A64E-7069-43F1-A4E8-17715AE2A67F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB07F2A1-6D31-4C39-9162-5BEB342D03A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB07F2A1-6D31-4C39-9162-5BEB342D03A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB07F2A1-6D31-4C39-9162-5BEB342D03A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB07F2A1-6D31-4C39-9162-5BEB342D03A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

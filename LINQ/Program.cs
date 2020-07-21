@@ -26,10 +26,10 @@ namespace LINQ
             xmlPayments.Write(Payments);
 
             var request = new LinqRequests();
-            //request.LastMonthPayments();
+            request.LastMonthPayments();
             //request.MaxAveragePayment();
             //request.UserSumPayments(45);
-            request.Top3MaxAndMin();
+            //request.Top3MaxAndMin();
         }
     }
 }

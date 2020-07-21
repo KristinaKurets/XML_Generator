@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Text;
 
-namespace EntityFramework
+namespace DataBase_Generator
 {
     public class GeneratorContext : DbContext
     {

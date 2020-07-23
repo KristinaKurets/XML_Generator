@@ -18,14 +18,15 @@ namespace WindowsService
 
         public Service()
         {
-            ServiceName = "MyCoreService";
+            ServiceName = "WindowsService";
             CanStop = true;
             CanPauseAndContinue = true;
             AutoLog = true;
         }
+
         protected override void OnStart(string[] args)
         {
-            watcher = new Watcher("C:\\Check");
+            watcher = new Watcher("C:\\Users\\Kris\\source\\repos\\XML_Generator\\LINQ\\bin\\Debug\\netcoreapp3.1");
             Thread loggerThread = new Thread(new ThreadStart(watcher.Start));
             loggerThread.Start();
         }

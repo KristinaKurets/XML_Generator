@@ -9,7 +9,7 @@ CREATE TABLE #myTempTable
 );
 INSERT INTO #myTempTable(Xml)
     SELECT CONVERT(XML, BulkColumn) AS BulkColumn
-    FROM OPENROWSET(BULK 'C:\BaseOfNames.xml', SINGLE_BLOB) AS x;
+    FROM OPENROWSET(BULK 'C:\Users\Kris\source\repos\XML_Generator\LINQ\bin\Debug\netcoreapp3.1\BaseOfNames.xml', SINGLE_BLOB) AS x;
 DECLARE @XML AS XML, 
         @hDoc AS INT, 
         @SQL NVARCHAR (MAX)

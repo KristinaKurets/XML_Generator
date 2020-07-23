@@ -17,10 +17,9 @@ namespace WindowsService
         FileSystemWatcher watcher;
         object obj = new object();
         bool enabled = true;
-        private List<string> filesAdded;
-        private List<string> filesToParse;
         protected string directoryPath;
 
+       
         public Watcher(string directoryPath)
         {
             this.directoryPath = directoryPath;
@@ -31,7 +30,7 @@ namespace WindowsService
             watcher.Changed += Watcher_Changed;
             watcher.Renamed += Watcher_Renamed;
 
-            watcher.Filter = ".xml";
+            //watcher.Filter = ".xml";
             
         }
 
@@ -58,7 +57,7 @@ namespace WindowsService
         }
 
         // изменение файлов
-        [Obsolete]
+       
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             string fileEvent = "изменен";
@@ -69,7 +68,7 @@ namespace WindowsService
         }
 
         // создание файлов
-        [Obsolete]
+        
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             string fileEvent = "создан";
@@ -86,7 +85,7 @@ namespace WindowsService
             RecordEntry(fileEvent, filePath);
         }
 
-        [Obsolete]
+        
         public void AddPeople(object sender, FileSystemEventArgs e)
         {
             if (IsTargetExtension(Path.GetExtension(e.FullPath)))
@@ -101,12 +100,12 @@ namespace WindowsService
                     {
                         using (var transaction = context.Database.BeginTransaction())
                         {
-                            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[People] ON");
+                            context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[People] ON");
                             var clients = context.People.ToList();
                             var difClients = table.Except(clients, comparer);
                             context.AddRange(difClients);
                             context.SaveChanges();
-                            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[People] OFF");
+                            context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[People] OFF");
                             transaction.Commit();
                         }
                     }
@@ -114,7 +113,7 @@ namespace WindowsService
             }
 
         }
-        [Obsolete]
+        
         public void AddPayments(object sender, FileSystemEventArgs e)
         {
             if (IsTargetExtension(Path.GetExtension(e.FullPath)))
@@ -129,12 +128,12 @@ namespace WindowsService
                     {
                         using (var transaction = context.Database.BeginTransaction())
                         {
-                            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Payments] ON");
+                            context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Payments] ON");
                             var clientPayments = context.Payments.ToList();
                             var difPayments = table.Except(clientPayments, comparer);
                             context.AddRange(difPayments);
                             context.SaveChanges();
-                            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Payments] OFF");
+                            context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT [dbo].[Payments] OFF");
                             transaction.Commit();
                         }
                     }
@@ -147,7 +146,8 @@ namespace WindowsService
 
         private void RecordEntry(string fileEvent, string filePath)
         {
-            string filepath = "C:\\temp\\templog.txt";
+
+            string filepath = "C:\\templog.txt";
             lock (obj)
             {
                 if (!File.Exists(filepath))
@@ -156,7 +156,7 @@ namespace WindowsService
                     using (StreamWriter sw = File.CreateText(filepath))
                     {
                         sw.WriteLine(string.Format("{0} файл {1} был {2}",
-                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filepath, fileEvent));
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
                     }
                 }
                 else
@@ -164,7 +164,7 @@ namespace WindowsService
                     using (StreamWriter sw = File.AppendText(filepath))
                     {
                         sw.WriteLine(string.Format("{0} файл {1} был {2}",
-                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filepath, fileEvent));
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
                     }
                 }
 

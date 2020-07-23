@@ -21,11 +21,9 @@ namespace WindowsService
         protected string directoryPath;
         Logger logger = LogManager.GetCurrentClassLogger();
 
-
         public Watcher(string directoryPath)
         {
             this.directoryPath = directoryPath;
-
             watcher = new FileSystemWatcher(directoryPath);
             watcher.Deleted += Watcher_Deleted;
             watcher.Created += Watcher_Created;
@@ -33,21 +31,21 @@ namespace WindowsService
             watcher.Renamed += Watcher_Renamed;
 
             watcher.Filter = "*.xml";
-            
         }
 
         public void Start()
         {
             watcher.EnableRaisingEvents = true;
+            logger.Info("Service started at ", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"));
             while (enabled)
             {
                 Thread.Sleep(1000);
             }
-
         }
         public void Stop()
         {
             watcher.EnableRaisingEvents = false;
+            logger.Info("Service stopped at ", DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"));
             enabled = false;
         }
         // переименование файлов
@@ -61,7 +59,6 @@ namespace WindowsService
         }
 
         // изменение файлов
-       
         private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
             string fileEvent = "изменен";
@@ -74,7 +71,6 @@ namespace WindowsService
         }
 
         // создание файлов
-        
         private void Watcher_Created(object sender, FileSystemEventArgs e)
         {
             string fileEvent = "создан";
@@ -85,6 +81,7 @@ namespace WindowsService
                         DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
             //RecordEntry(fileEvent, filePath);
         }
+
         // удаление файлов
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
@@ -95,7 +92,6 @@ namespace WindowsService
             //RecordEntry(fileEvent, filePath);
         }
 
-        
         public void AddPeople(object sender, FileSystemEventArgs e)
         {
             if (IsTargetExtension(Path.GetExtension(e.FullPath)))
@@ -121,7 +117,6 @@ namespace WindowsService
                     }
                 }
             }
-
         }
         
         public void AddPayments(object sender, FileSystemEventArgs e)
@@ -149,7 +144,6 @@ namespace WindowsService
                     }
                 }
             }
-
         }
 
         protected bool IsTargetExtension(string extension) => extension == watcher.Filter;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceProcess;
+using WindowsService.Jobs;
 
 namespace WindowsService
 {
@@ -10,8 +11,10 @@ namespace WindowsService
             using (var service = new Service())
             {
                 ServiceBase.Run(service);
+                Scheduler.Start();
                 //service.OnDebug();
             }
+           
         }
     }
 }

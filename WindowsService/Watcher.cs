@@ -2,6 +2,7 @@
 using Common.Comparer;
 using DataBase_Generator;
 using Microsoft.EntityFrameworkCore;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,8 +19,9 @@ namespace WindowsService
         object obj = new object();
         bool enabled = true;
         protected string directoryPath;
+        Logger logger = LogManager.GetCurrentClassLogger();
 
-       
+
         public Watcher(string directoryPath)
         {
             this.directoryPath = directoryPath;
@@ -30,7 +32,7 @@ namespace WindowsService
             watcher.Changed += Watcher_Changed;
             watcher.Renamed += Watcher_Renamed;
 
-            //watcher.Filter = ".xml";
+            watcher.Filter = "*.xml";
             
         }
 
@@ -53,7 +55,9 @@ namespace WindowsService
         {
             string fileEvent = "переименован в " + e.FullPath;
             string filePath = e.OldFullPath;
-            RecordEntry(fileEvent, filePath);
+            logger.Info(string.Format("{0} файл {1} был {2}",
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+            //RecordEntry(fileEvent, filePath);
         }
 
         // изменение файлов
@@ -64,7 +68,9 @@ namespace WindowsService
             string filePath = e.FullPath;
             AddPeople(sender, e);
             AddPayments(sender, e);
-            RecordEntry(fileEvent, filePath);
+            logger.Info(string.Format("{0} файл {1} был {2}",
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+            //RecordEntry(fileEvent, filePath);
         }
 
         // создание файлов
@@ -75,14 +81,18 @@ namespace WindowsService
             string filePath = e.FullPath;
             AddPeople(sender, e);
             AddPayments(sender, e);
-            RecordEntry(fileEvent, filePath);
+            logger.Info(string.Format("{0} файл {1} был {2}",
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+            //RecordEntry(fileEvent, filePath);
         }
         // удаление файлов
         private void Watcher_Deleted(object sender, FileSystemEventArgs e)
         {
             string fileEvent = "удален";
             string filePath = e.FullPath;
-            RecordEntry(fileEvent, filePath);
+            logger.Info(string.Format("{0} файл {1} был {2}",
+                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+            //RecordEntry(fileEvent, filePath);
         }
 
         
@@ -144,31 +154,31 @@ namespace WindowsService
 
         protected bool IsTargetExtension(string extension) => extension == watcher.Filter;
 
-        private void RecordEntry(string fileEvent, string filePath)
-        {
+        //private void RecordEntry(string fileEvent, string filePath)
+        //{
 
-            string filepath = "C:\\templog.txt";
-            lock (obj)
-            {
-                if (!File.Exists(filepath))
-                {
-                    // Create a file to write to.   
-                    using (StreamWriter sw = File.CreateText(filepath))
-                    {
-                        sw.WriteLine(string.Format("{0} файл {1} был {2}",
-                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
-                    }
-                }
-                else
-                {
-                    using (StreamWriter sw = File.AppendText(filepath))
-                    {
-                        sw.WriteLine(string.Format("{0} файл {1} был {2}",
-                        DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
-                    }
-                }
+        //    string filepath = "C:\\templog.txt";
+        //    lock (obj)
+        //    {
+        //        if (!File.Exists(filepath))
+        //        {
+        //            // Create a file to write to.   
+        //            using (StreamWriter sw = File.CreateText(filepath))
+        //            {
+        //                sw.WriteLine(string.Format("{0} файл {1} был {2}",
+        //                DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+        //            }
+        //        }
+        //        else
+        //        {
+        //            using (StreamWriter sw = File.AppendText(filepath))
+        //            {
+        //                sw.WriteLine(string.Format("{0} файл {1} был {2}",
+        //                DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss"), filePath, fileEvent));
+        //            }
+        //        }
 
-            }
-        }
+        //    }
+        //}
     }
 }

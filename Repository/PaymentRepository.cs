@@ -51,9 +51,9 @@ namespace Repository
             return Context.Payments.Find(id);
         }
 
-        public IQueryable<Payment> ReadAll()
+        public List<Payment> ReadAll()
         {
-            return Context.Payments;
+            return Context.Payments.ToList();
         }
 
         public bool Update(Payment item)

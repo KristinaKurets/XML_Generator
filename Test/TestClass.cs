@@ -6,63 +6,76 @@ using NUnit.Framework;
 using Repository;
 using System.Collections.Generic;
 using System.Linq;
-using Test.Extensions;
-using Test.Resources;
 using Assert = NUnit.Framework.Assert;
 
 namespace Test
 {
-    [TestClass]
-    public class TestClass
+   public class TestClass
     {
-        private List<Person> People { get; set; }
-        private List<Payment> Payments { get; set; }
-        
-        [TestInitialize]
-        public void Setup()
+        protected IRepository<Person> People { get; set; }
+        protected IRepository<Payment> Payments { get; set; }
+
+       public void Setup(IList<Payment> payments = null)
         {
-            var desPeople = new XMLDeserializator<List<Person>>();
-            var desPayments = new XMLDeserializator<List<Payment>>();
-            People = desPeople.Load(DataResources.PeoplePath);
-            Payments = desPayments.Load(DataResources.PaymentsPath);
+            var mockPeople = new Mock<IRepository<Person>>();
+            var mockPayments = new Mock<IRepository<Payment>>();
+            mockPayments.Setup(x => x.Read(1)).Returns(new Payment { ID = 1});
+            mockPayments.Setup(x => x.ReadAll()).Returns(new List<Payment>());
+            mockPeople.Setup(x => x.Read(1)).Returns(new Person { ID = 1 });
+            People = mockPeople.Object;
+            Payments = mockPayments.Object;
+        }
+       
+
+        [Test, TestCase(1)]
+        public void TestReadPersonById(int id)
+        {
+            Setup();
+            Assert.AreEqual(id, People.Read(id).ID);
         }
 
-        [TestMethod]
-        public void Test1()
+        [Test, TestCase(1)]
+        public void ReadPaymentById(int id)
         {
-            var mockContext = new Mock<GeneratorContext>();
-            var peopleDbSet = People.GetQueryableMockDbSet();
-            foreach (var person in People)
-            {
-                peopleDbSet.Add(person);
-            }
-            mockContext.Setup(context => context.People).Returns(peopleDbSet);
-            var dbContext = mockContext.Object;
-            var mockRepository = new Mock<IRepository<Person>>();
-            mockRepository.Setup(e => e.ReadAll()).Returns(dbContext.People);
-            var peopleRepository = mockRepository.Object;
-            var records = peopleRepository.ReadAll();
-
-            Assert.IsTrue(People.Count == 1000);
+            Setup();
+            Assert.AreEqual(id, Payments.Read(id).ID);
         }
 
-        [TestMethod]
-        public void Test2()
+        [Test, TestCase(typeof(TestCases), nameof(TestCases.ReadAllTestCase))]
+        public int TestCount(IList<Payment> payments)
         {
-            var mockContext = new Mock<GeneratorContext>();
-            var paymentsDbSet = Payments.GetQueryableMockDbSet();
-            foreach (var person in Payments)
-            {
-                paymentsDbSet.Add(person);
-            }
-            mockContext.Setup(context => context.Payments).Returns(paymentsDbSet);
-            var dbContext = mockContext.Object;
-            var mockRepository = new Mock<IRepository<Payment>>();
-            mockRepository.Setup(e => e.ReadAll()).Returns(dbContext.Payments);
-            var paymentsRepository = mockRepository.Object;
-            var records = paymentsRepository.ReadAll();
-
-            Assert.IsTrue(Payments.Count == 10000);
+            Setup(payments);
+            var result = Payments.ReadAll();
+            return result.Count;
         }
     }
+
+    public class TestCases
+    {
+
+        protected static readonly IList<Payment> payments = new List<Payment>
+        {
+           new Payment
+           {
+               ID = 1,
+               Sum = 1000
+           },
+           new Payment
+           {
+               ID = 2,
+               Sum = 3400
+           }
+        };
+
+        public IEnumerable <TestCaseData> ReadAllTestCase
+        {
+            get
+            {
+                yield return new TestCaseData(payments).Returns(payments.Count);
+                yield return new TestCaseData(null).Returns(0);
+            }
+        }
+    }
+
+    
 }

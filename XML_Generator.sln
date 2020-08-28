@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBase_Generator", "DataBase_Generator\DataBase_Generator.csproj", "{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DB", "DataBase_Generator\DB.csproj", "{889518F2-CCF1-45EE-980F-27DD1A4ACCB4}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SQL_Project", "SQL_Project\SQL_Project.sqlproj", "{5004C623-CA95-43EF-9E10-7B4542D202B8}"
 EndProject
@@ -18,11 +18,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFramework", "EntityFr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowsService", "WindowsService\WindowsService.csproj", "{EB07F2A1-6D31-4C39-9162-5BEB342D03A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{3F259A3C-43D1-4276-92A1-3021CA301D28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{3F259A3C-43D1-4276-92A1-3021CA301D28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{05553C63-C5EE-4B0A-813E-98F2AE1C0E3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{05553C63-C5EE-4B0A-813E-98F2AE1C0E3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI", "DI\DI.csproj", "{34B75202-AD4B-4D1B-A0E8-BF30D0F2DE70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DI", "DI\DI.csproj", "{34B75202-AD4B-4D1B-A0E8-BF30D0F2DE70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

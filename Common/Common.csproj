@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataBase_Generator\DataBase_Generator.csproj" />
+    <ProjectReference Include="..\DataBase_Generator\DB.csproj" />
   </ItemGroup>
 
 </Project>

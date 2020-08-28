@@ -50,9 +50,9 @@ namespace Repository
             return Context.People.Find(id);
         }
 
-        public IQueryable<Person> ReadAll()
+        public List<Person> ReadAll()
         {
-            return Context.People;
+            return Context.People.ToList();
         }
 
         public bool Update(Person item)

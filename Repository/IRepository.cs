@@ -11,7 +11,7 @@ namespace Repository
         TSource Read(int id);
         bool Update(TSource item);
         bool Delete(int id);
-        IQueryable<TSource> ReadAll();
+        List<TSource> ReadAll();
         void CreateAll(IEnumerable<TSource> items);
     }
 }
